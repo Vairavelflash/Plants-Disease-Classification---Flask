@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Project Group 35</title>
+    <link
+      href="https://cdn.bootcss.com/bootstrap/4.0.0/css/bootstrap.min.css"
+      rel="stylesheet"
+    />
+    <script src="https://cdn.bootcss.com/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdn.bootcss.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+      body {
+        background: url("../static/images/bg5.jpg");
+        background-size: cover;
+        color: white;
+      }
+      .upload {
+        font-size: 20px;
+        background-color: #fff;
+        border-radius: 20px;
+        outline: none;
+        width: 100%;
+        color: #000;
+        border: 3px solid #2d2f31;
+        padding: 10px;
+      }
+
+      ::-webkit-file-upload-button {
+        display: inline-block;
+        padding: 10px 20px;
+        background: #39d2b4;
+        color: #fff;
+        font-size: 1em;
+        transition: all 0.4s;
+        cursor: pointer;
+      }
+
+      #preview {
+        margin-bottom: 20px;
+        max-width: 100%;
+        height: auto;
+        padding: 10px;
+        background-color: white;
+      }
+      .title{
+        color: green;
+      }
+    </style>
+    <script>
+      function previewImage(event) {
+        const reader = new FileReader();
+        reader.onload = function () {
+          const output = document.getElementById("preview");
+          output.src = reader.result;
+          output.style.display = "block";
+        };
+        reader.readAsDataURL(event.target.files[0]);
+      }
+    </script>
+  </head>
+  <body>
+    <nav class="navbar navbar-dark bg-dark">
+      <div class="container">
+        <a class="navbar-brand" href="#">Plants Disease Detection</a>
+
+        <button type="button" class="btn btn-outline-warning">Track Complain</button>
+        <button type="button" class="btn btn-outline-info">Raise Complain</button>
+        <button type="button" class="btn btn-outline-light">Account Info</button>
+
+      </div>
+    </nav>
+    <div class="container text-center">
+      <h1 class="mt-2 mb-1 title" style="font-size: 4rem">
+        Predict Plants Disease & Get Cure
+      </h1>
+
+      <section
+        class="d-flex justify-content-center align-items-center"
+        style="height: 80vh"
+      >
+        <form
+          action="/predict"
+          method="post"
+          enctype="multipart/form-data"
+          onsubmit="showloading()"
+          class="w-50 d-flex flex-column justify-content-center align-items-center"
+        >
+          <div class="form-group">
+            <input
+              type="file"
+              name="image"
+              accept=".png, .jpg, .jpeg"
+              class="form-control-file upload btn"
+              onchange="previewImage(event)"
+            />
+          </div>
+          <img id="preview" style="display: none" />
+          <button type="submit" class="btn btn-primary btn-lg">Predict</button>
+        </form>
+      </section>
+    </div>
+  </body>
+</html>
